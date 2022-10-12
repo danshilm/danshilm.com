@@ -1,7 +1,8 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import Head from 'next/head';
 import Script from 'next/script';
+import Layout from '../components/Layout';
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -15,7 +16,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         src="https://plausible.danshilm.com/js/plausible.js"
       />
 
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   );
 }
