@@ -6,7 +6,11 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'nav-title': ['Dancing Script']
+      }
+    },
   },
   plugins: [],
 };

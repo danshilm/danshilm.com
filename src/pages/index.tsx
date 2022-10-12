@@ -8,7 +8,7 @@ const Home: NextPage = () => {
       <Head>
         <title>danshilm.com</title>
       </Head>
-      <div className="flex flex-col items-center justify-center min-h-screen px-6 text-gray-200 dark:bg-black bg-[#181A1C]">
+      <div className="flex flex-col items-center justify-center flex-1 px-6 text-gray-200 dark:bg-black bg-[#181A1C]">
         <main className="flex flex-col items-center justify-center flex-1 w-full py-20 text-center">
           <h1 className="text-6xl font-bold">
             Welcome to{' '}
