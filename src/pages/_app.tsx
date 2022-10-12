@@ -7,9 +7,6 @@ import Head from 'next/head';
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Head>
-        <title>danshilm.com</title>
-      </Head>
       <Script
         defer
         data-domain="danshilm.com"
