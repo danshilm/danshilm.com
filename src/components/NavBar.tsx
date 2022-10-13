@@ -7,8 +7,9 @@ const NavBar = () => {
   return (
     <div className="flex justify-center h-16 text-white bg-black border-b border-gray-700">
       <div className="flex justify-between flex-1 max-w-3xl px-3">
-        <div className="flex items-center w-64">
-          <p className="p-2 text-4xl font-bold font-nav-title">Danshil</p>
+        <div className="flex items-center">
+          <p className="hidden p-2 text-4xl font-bold font-nav-title md:block">Danshil Kokil Mungur</p>
+          <p className="block p-2 text-4xl font-bold font-nav-title md:hidden">Danshil</p>
         </div>
         <div className="flex items-center gap-1">
           <button
