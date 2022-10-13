@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import useColourScheme from '../hooks/useColourScheme';
+import { useTheme } from '../hooks/useTheme';
 import NavBar from './NavBar';
 
 const Layout = ({ children }: { children: JSX.Element }) => {
-  const { isDarkMode } = useColourScheme();
+  const { isDarkMode } = useTheme();
 
   return (
     <div className="flex flex-col min-h-screen">
