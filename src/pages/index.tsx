@@ -36,7 +36,7 @@ const Home: NextPage = () => {
             management tool for the Plex ecosystem called{' '}
             <span className="underline cursor-pointer hover:text-white">
               <a
-                href="https://github.com/sct/overseerr"
+                href="https://overseerr.dev"
                 target="_blank"
                 rel="noreferrer"
               >
