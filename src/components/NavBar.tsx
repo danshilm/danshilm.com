@@ -49,7 +49,7 @@ const NavBar = () => {
             )}
           </button>
           <a
-            href="https://github.com/danshilm/danshilm.com"
+            href="https://github.com/danshilm"
             target="_blank"
             className="flex items-center flex-row p-2.5 rounded-lg hover:bg-gray-800"
             rel="noreferrer"
@@ -70,7 +70,7 @@ const NavBar = () => {
             </svg>
 
             <div className="flex-row items-center hidden sm:flex">
-              <p>View on GitHub</p>
+              <p>GitHub Profile</p>
               <svg
                 className="w-5 h-5 ml-2"
                 fill="none"
