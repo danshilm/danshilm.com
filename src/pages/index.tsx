@@ -4,9 +4,6 @@ import Head from 'next/head';
 const Home: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>danshilm.com</title>
-      </Head>
       <div className="flex flex-col items-center justify-center flex-1 px-6 text-gray-200 dark:bg-black bg-[#181A1C]">
         <div className="max-w-5xl pt-32 lg:py-0 lg:px-4 pb-14">
           <p className="font-serif font-semibold text-8xl">

@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from '../hooks/useTheme';
 import NavBar from './NavBar';
 
-const Layout = ({ children }: { children: JSX.Element }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   const { isDarkMode } = useTheme();
 
   return (
