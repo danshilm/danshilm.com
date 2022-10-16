@@ -15,6 +15,7 @@ const NavBar = () => {
           <button
             className="p-2.5 rounded-lg hover:bg-gray-800"
             onClick={toggle}
+            aria-label='Toggle dark mode button'
           >
             {isDarkMode ? (
               <svg
