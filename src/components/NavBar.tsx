@@ -11,7 +11,7 @@ import { getRelativeTime } from '../utils/date';
 const NavBar = () => {
   const { isDarkMode, toggle } = useTheme();
   const { data } = useSWR<ListenResponse>('/api/listening-to', {
-    refreshInterval: 15,
+    refreshInterval: 15000,
   });
   const [isMusicWidgetOpen, setIsMusicWidgetOpen] = useState(false);
   const musicWidgetRef = useRef<HTMLDivElement | null>(null);
