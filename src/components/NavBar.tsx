@@ -10,7 +10,9 @@ import { getRelativeTime } from '../utils/date';
 
 const NavBar = () => {
   const { isDarkMode, toggle } = useTheme();
-  const { data } = useSWR<ListenResponse>('/api/listening-to');
+  const { data } = useSWR<ListenResponse>('/api/listening-to', {
+    refreshInterval: 15,
+  });
   const [isMusicWidgetOpen, setIsMusicWidgetOpen] = useState(false);
   const musicWidgetRef = useRef<HTMLDivElement | null>(null);
   // for auto-animate to work
