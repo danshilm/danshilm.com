@@ -25,14 +25,14 @@ const NavBar = () => {
   }, [parent]);
 
   return (
-    <div className="flex justify-center h-16 text-gray-200 bg-black border-b border-gray-700">
+    <div className="flex justify-center h-16 text-gray-200 bg-black border-b border-gray-700 px-3">
       <div
         className="flex justify-between flex-1 max-w-5xl relative"
         ref={parent}
       >
         {data && isMusicWidgetOpen && (
           <div
-            className="flex flex-row absolute rounded-lg bg-gray-900 p-2 h-28 mt-2 max-w-lg z-20 shadow-md"
+            className="flex flex-row absolute rounded-lg bg-gray-900 p-2 h-28 mt-2 max-w-lg z-20 shadow-md -ml-1"
             ref={musicWidgetRef}
           >
             <div className="bg-gray-700 rounded-md overflow-hidden flex justify-center items-center w-24 h-24 relative">
@@ -91,7 +91,7 @@ const NavBar = () => {
             </div>
           </div>
         )}
-        <div className="flex items-center ml-3">
+        <div className="flex items-center">
           {data && (
             <div
               className="h-11 w-11 rounded-md relative overflow-hidden cursor-pointer flex items-center justify-center bg-gray-800"
@@ -137,7 +137,7 @@ const NavBar = () => {
             </p>
           </>
         </div>
-        <div className="flex items-center gap-1 mr-3">
+        <div className="flex items-center gap-1">
           <button
             className="p-2.5 rounded-lg hover:bg-gray-800"
             onClick={toggle}
