@@ -62,7 +62,7 @@ const NavBar = () => {
                 </svg>
               )}
             </div>
-            <div className="ml-3 flex flex-col sm:max-w-[18rem] max-w-[12rem] sm:min-w-[16rem] min-w-[12rem]">
+            <div className="ml-3 flex flex-col sm:max-w-[18rem] max-w-[12rem] sm:min-w-[16rem] min-w-[12rem] pr-2">
               {data.isLive ? (
                 <>
                   <div className="flex flex-row items-center">
