@@ -61,12 +61,12 @@ export interface ListenResponse {
   isLive: boolean;
 }
 
-// give or take 2 minutes
+// give or take 3 minutes
 const isListeningTo = (time: number) => {
   const now = new Date();
-  const twoMinutes = 2 * 60 * 1000;
+  const twoMinutes = 3 * 60 * 1000;
 
-  return now.getTime() - time < twoMinutes;
+  return now.getTime() - time * 1000 < twoMinutes;
 };
 
 const getListen = async (req: NextApiRequest, res: NextApiResponse) => {
