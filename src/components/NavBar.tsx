@@ -1,21 +1,124 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
+import useSWR from 'swr';
 import { useTheme } from '../hooks/useTheme';
+import Image from 'next/image';
+import { ListenResponse } from '../pages/api/listening-to';
+import useClickOutside from '../hooks/useClickOutside';
+import autoAnimate from '@formkit/auto-animate';
+import { getRelativeTime } from '../utils/date';
 
 const NavBar = () => {
   const { isDarkMode, toggle } = useTheme();
+  const { data } = useSWR<ListenResponse>('/api/listening-to');
+  const [isMusicWidgetOpen, setIsMusicWidgetOpen] = useState(false);
+  const musicWidgetRef = useRef<HTMLDivElement | null>(null);
+  // for auto-animate to work
+  const parent = useRef(null);
+
+  useClickOutside(musicWidgetRef, () => setIsMusicWidgetOpen(false));
+
+  useEffect(() => {
+    parent.current && autoAnimate(parent.current);
+  }, [parent]);
 
   return (
     <div className="flex justify-center h-16 text-gray-200 bg-black border-b border-gray-700">
-      <div className="flex justify-between flex-1 max-w-5xl px-3">
-        <div className="flex items-center">
-          <p className="hidden p-2 text-4xl font-bold font-nav-title md:block">Danshil Kokil Mungur</p>
-          <p className="block p-2 text-4xl font-bold font-nav-title md:hidden">Danshil</p>
+      <div
+        className="flex justify-between flex-1 max-w-5xl relative"
+        ref={parent}
+      >
+        {data && isMusicWidgetOpen && (
+          <div
+            className="flex flex-row absolute rounded-lg bg-gray-900 p-2 h-28 mt-2 max-w-lg z-20 shadow-md"
+            ref={musicWidgetRef}
+          >
+            <div className="bg-gray-700 rounded-md overflow-hidden flex justify-center items-center w-24 h-24 relative">
+              {data.albumArtUrl ? (
+                <Image
+                  src={data.albumArtUrl}
+                  alt="Cover image of the album whose song I last listened to"
+                  layout="fill"
+                  className="cursor-pointer"
+                />
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
+                  />
+                </svg>
+              )}
+            </div>
+            <div className="ml-3 flex flex-col sm:max-w-[18rem] max-w-[12rem] sm:min-w-[16rem] min-w-[12rem]">
+              {data.isLive ? (
+                <>
+                  <div className="flex flex-row items-center">
+                    <div className="w-1.5 h-1.5 animate-pulse bg-green-600 rounded-full" />
+                    <p className="ml-2 italic text-gray-400 text-sm">
+                      Currently listening to
+                    </p>
+                  </div>
+                </>
+              ) : (
+                <div className="flex flex-row items-center">
+                  <p className="italic text-gray-400 text-sm">
+                    ~ {getRelativeTime(new Date(data.lastListenedTo * 1000))}
+                  </p>
+                </div>
+              )}
+              <div className="flex flex-1" />
+              <p className="text-2xl font-semibold tracking-tighter truncate">
+                {data.song}
+              </p>
+              <p className="truncate tracking-tight">{data.album}</p>
+              <p className="tracking-tight truncate -mt-1">
+                <span className="text-gray-300 italic text-sm"> by </span>
+                {data.artist}
+              </p>
+            </div>
+          </div>
+        )}
+        <div className="flex items-center ml-3">
+          {data && data.albumArtUrl && (
+            <div
+              className="h-11 w-11 rounded-md relative overflow-hidden cursor-pointer"
+              onClick={() => {
+                setIsMusicWidgetOpen(true);
+              }}
+            >
+              {data.isLive && (
+                <div className="h-1.5 w-1.5 bg-green-700 rounded-full animate-pulse absolute z-10 top-1 right-1" />
+              )}
+              <Image
+                src={data.albumArtUrl}
+                alt="Cover image of the album whose song I last listened to"
+                layout="fill"
+              />
+            </div>
+          )}
+          <>
+            <p className="hidden p-2 text-4xl font-bold font-nav-title md:block">
+              Danshil Kokil Mungur
+            </p>
+            <p className="block p-2 text-4xl font-bold font-nav-title md:hidden">
+              Danshil
+            </p>
+          </>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 mr-3">
           <button
             className="p-2.5 rounded-lg hover:bg-gray-800"
             onClick={toggle}
-            aria-label='Toggle dark mode button'
+            aria-label="Toggle dark mode button"
           >
             {isDarkMode ? (
               <svg
