@@ -69,7 +69,9 @@ const isListeningTo = (time: number) => {
   return now.getTime() - time * 1000 < twoMinutes;
 };
 
-const getListen = async (req: NextApiRequest, res: NextApiResponse) => {
+const getListen = async (_req: NextApiRequest, res: NextApiResponse) => {
+  res.setHeader('Cache-Control', ['s-maxage=1', 'stale-while-revalidate']);
+
   const response = await axios.get<ListenBrainzResponse>(
     'https://api.listenbrainz.org/1/user/CrazyMonk/listens?count=1',
     {
