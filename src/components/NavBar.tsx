@@ -16,6 +16,7 @@ const NavBar = () => {
   const receivedInitialData = useRef(false);
   const [isMusicWidgetOpen, setIsMusicWidgetOpen] = useState(false);
   const musicWidgetRef = useRef<HTMLDivElement | null>(null);
+  const musicWidgetData = useRef<{ song?: string }>({ song: undefined });
 
   // for auto-animate to work
   // pretty tedious, I know :(
@@ -51,6 +52,15 @@ const NavBar = () => {
       setIsMusicWidgetOpen(true);
       receivedInitialData.current = true;
     }
+  }, [data]);
+
+  // show music widget when song changes
+  useEffect(() => {
+    if (data && musicWidgetData.current.song !== data.song) {
+      setIsMusicWidgetOpen(true);
+    }
+
+    musicWidgetData.current.song = data?.song;
   }, [data]);
 
   return (
