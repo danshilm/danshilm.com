@@ -25,17 +25,17 @@ const NavBar = () => {
   }, [parent]);
 
   return (
-    <div className="flex justify-center h-16 text-gray-200 bg-black border-b border-gray-700 px-3">
+    <div className="flex justify-center h-16 px-3 text-gray-200 bg-black border-b border-gray-700">
       <div
-        className="flex justify-between flex-1 max-w-5xl relative"
+        className="relative flex justify-between flex-1 max-w-5xl"
         ref={parent}
       >
         {data && isMusicWidgetOpen && (
           <div
-            className="flex flex-row absolute rounded-lg bg-gray-900 p-2 h-28 mt-2 max-w-lg z-20 shadow-md -ml-1"
+            className="flex flex-row absolute rounded-lg bg-gray-900 p-2 h-28 mt-2 w-[96vw] max-w-sm md:max-w-md z-20 shadow-md -ml-1"
             ref={musicWidgetRef}
           >
-            <div className="bg-gray-700 rounded-md overflow-hidden flex justify-center items-center w-24 h-24 relative">
+            <div className="relative flex items-center justify-center w-24 h-24 overflow-hidden bg-gray-700 rounded-md">
               {data.albumArtUrl ? (
                 <Image
                   src={data.albumArtUrl}
@@ -62,19 +62,19 @@ const NavBar = () => {
                 </svg>
               )}
             </div>
-            <div className="ml-3 flex flex-col sm:max-w-[18rem] max-w-[12rem] sm:min-w-[16rem] min-w-[12rem] pr-2">
+            <div className="flex flex-col pr-2 ml-3">
               {data.isLive ? (
                 <>
                   <div className="flex flex-row items-center">
                     <div className="w-1.5 h-1.5 animate-pulse bg-green-600 rounded-full" />
-                    <p className="ml-2 italic text-gray-400 text-sm">
+                    <p className="ml-2 text-sm italic text-gray-400">
                       Currently listening to
                     </p>
                   </div>
                 </>
               ) : (
                 <div className="flex flex-row items-center">
-                  <p className="italic text-gray-400 text-sm">
+                  <p className="text-sm italic text-gray-400">
                     ~ {getRelativeTime(new Date(data.lastListenedTo * 1000))}
                   </p>
                 </div>
@@ -83,9 +83,9 @@ const NavBar = () => {
               <p className="text-2xl font-semibold tracking-tighter truncate">
                 {data.song}
               </p>
-              <p className="truncate tracking-tight">{data.album}</p>
-              <p className="tracking-tight truncate -mt-1">
-                <span className="text-gray-300 italic text-sm"> by </span>
+              <p className="tracking-tight truncate">{data.album}</p>
+              <p className="-mt-1 tracking-tight truncate">
+                <span className="text-sm italic text-gray-300"> by </span>
                 {data.artist}
               </p>
             </div>
@@ -94,7 +94,7 @@ const NavBar = () => {
         <div className="flex items-center">
           {data && (
             <div
-              className="h-11 w-11 rounded-md relative overflow-hidden cursor-pointer flex items-center justify-center bg-gray-800"
+              className="relative flex items-center justify-center overflow-hidden bg-gray-800 rounded-md cursor-pointer h-11 w-11"
               onClick={() => {
                 setIsMusicWidgetOpen(true);
               }}
