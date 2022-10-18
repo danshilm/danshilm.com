@@ -17,7 +17,7 @@ interface ListenBrainzResponse {
           release_msid?: any;
         };
         artist_name: string;
-        mbid_mapping: {
+        mbid_mapping?: {
           artist_mbids: string[];
           recording_mbid: string;
           release_mbid: string;
@@ -84,6 +84,10 @@ const getListen = async (_req: NextApiRequest, res: NextApiResponse) => {
 
     const lastListenedTo = response.data.payload.listens[0];
 
+    if (!lastListenedTo) {
+      throw new Error('Nothing was previously listened to');
+    }
+
     const data: ListenResponse = {
       album: lastListenedTo.track_metadata.release_name,
       artist: lastListenedTo.track_metadata.artist_name,
@@ -92,17 +96,19 @@ const getListen = async (_req: NextApiRequest, res: NextApiResponse) => {
       isLive: isListeningTo(lastListenedTo.listened_at),
     };
 
-    const coverImageResponse = await axios.get<CoverImageResponse>(
-      `https://coverartarchive.org/release/${lastListenedTo.track_metadata.mbid_mapping.release_mbid}`
-    );
+    if (lastListenedTo.track_metadata.mbid_mapping?.release_mbid) {
+      const coverImageResponse = await axios.get<CoverImageResponse>(
+        `https://coverartarchive.org/release/${lastListenedTo.track_metadata.mbid_mapping.release_mbid}`
+      );
 
-    if (coverImageResponse.data.images[0].image) {
-      data.albumArtUrl = coverImageResponse.data.images[0].image;
+      if (coverImageResponse.data.images[0].image) {
+        data.albumArtUrl = coverImageResponse.data.images[0].image;
+      }
     }
 
     res.status(200).json(data);
   } catch (e) {
-    res.status(500).json({ error: 'Something went wrong' });
+    res.status(500).json({ error: `Something went wrong: ${e}` });
   }
 };
 
