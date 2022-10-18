@@ -32,7 +32,7 @@ const NavBar = () => {
       >
         {data && isMusicWidgetOpen && (
           <div
-            className="flex flex-row absolute rounded-lg bg-gray-900 p-2 h-28 mt-2 w-[96vw] max-w-sm md:max-w-md z-20 shadow-md -ml-1"
+            className="flex flex-row absolute rounded-lg bg-gray-900 p-2 h-28 mt-2 w-[96vw] max-w-md z-20 shadow-md -ml-1"
             ref={musicWidgetRef}
           >
             <div className="relative flex items-center justify-center w-24 h-24 overflow-hidden bg-gray-700 rounded-md">
