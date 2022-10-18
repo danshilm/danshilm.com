@@ -3,7 +3,7 @@ import useSWR from 'swr';
 import { useTheme } from '../hooks/useTheme';
 import type { ListenResponse } from '../pages/api/listening-to';
 import useClickOutside from '../hooks/useClickOutside';
-import autoAnimate from '@formkit/auto-animate';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 import MusicWidget from './MusicWidget';
 import MiniMusicWidget from './MusicWidget/MiniMusicWidget';
 import Delayed from './Delayed';
@@ -18,22 +18,10 @@ const NavBar = () => {
   const musicWidgetRef = useRef<HTMLDivElement | null>(null);
   const musicWidgetData = useRef<{ song?: string }>({ song: undefined });
 
-  // for auto-animate to work
-  // pretty tedious, I know :(
-  const widgetParent = useRef(null);
-  const miniWidgetParent = useRef(null);
+  const [widgetParent] = useAutoAnimate<HTMLDivElement>();
+  const [miniWidgetParent] = useAutoAnimate<HTMLDivElement>();
 
   useClickOutside(musicWidgetRef, () => setIsMusicWidgetOpen(false));
-
-  // auto-animate the widget opening and closing
-  useEffect(() => {
-    widgetParent.current && autoAnimate(widgetParent.current);
-  }, [widgetParent]);
-
-  // auto-animate the mini widget opening and closing
-  useEffect(() => {
-    miniWidgetParent.current && autoAnimate(miniWidgetParent.current);
-  }, [miniWidgetParent]);
 
   // close widget 15 seconds after it's opened
   useEffect(() => {
