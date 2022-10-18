@@ -18,7 +18,9 @@ const NavBar = () => {
   const musicWidgetRef = useRef<HTMLDivElement | null>(null);
   const musicWidgetData = useRef<{ song?: string }>({ song: undefined });
 
+  // auto-animate the widget opening and closing
   const [widgetParent] = useAutoAnimate<HTMLDivElement>();
+  // auto-animate the mini widget opening and closing
   const [miniWidgetParent] = useAutoAnimate<HTMLDivElement>();
 
   useClickOutside(musicWidgetRef, () => setIsMusicWidgetOpen(false));
