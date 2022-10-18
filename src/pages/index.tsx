@@ -14,8 +14,7 @@ const Home: NextPage = () => {
             projects.
           </p>
           <p className="mt-4 text-xl text-gray-300">
-            I currently spend a lot of my free time working on a mobile app that
-            helps people navigate through Mauritius using public transportation
+            I currently spend a lot of my free time working on a mobile app,
             called{' '}
             <span className="underline cursor-pointer hover:text-white">
               <a
@@ -26,17 +25,14 @@ const Home: NextPage = () => {
                 MoBouzer
               </a>
             </span>
-            .
+            , that helps people using public transportation to navigate through
+            Mauritius.
           </p>
           <p className="mt-2 text-xl text-gray-300">
             I also help maintain and contribute to a media discovery & request
             management tool for the Plex ecosystem called{' '}
             <span className="underline cursor-pointer hover:text-white">
-              <a
-                href="https://overseerr.dev"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href="https://overseerr.dev" target="_blank" rel="noreferrer">
                 Overseerr
               </a>
             </span>
