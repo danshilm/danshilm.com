@@ -70,36 +70,40 @@ const isListeningTo = (time: number) => {
 };
 
 const getListen = async (_req: NextApiRequest, res: NextApiResponse) => {
-  res.setHeader('Cache-Control', ['s-maxage=1', 'stale-while-revalidate']);
+  try {
+    res.setHeader('Cache-Control', ['s-maxage=1', 'stale-while-revalidate']);
 
-  const response = await axios.get<ListenBrainzResponse>(
-    'https://api.listenbrainz.org/1/user/CrazyMonk/listens?count=1',
-    {
-      headers: {
-        Authorization: process.env.LISTENBRAINZ_USER_TOKEN,
-      },
+    const response = await axios.get<ListenBrainzResponse>(
+      'https://api.listenbrainz.org/1/user/CrazyMonk/listens?count=1',
+      {
+        headers: {
+          Authorization: process.env.LISTENBRAINZ_USER_TOKEN,
+        },
+      }
+    );
+
+    const lastListenedTo = response.data.payload.listens[0];
+
+    const data: ListenResponse = {
+      album: lastListenedTo.track_metadata.release_name,
+      artist: lastListenedTo.track_metadata.artist_name,
+      song: lastListenedTo.track_metadata.track_name,
+      lastListenedTo: lastListenedTo.listened_at,
+      isLive: isListeningTo(lastListenedTo.listened_at),
+    };
+
+    const coverImageResponse = await axios.get<CoverImageResponse>(
+      `https://coverartarchive.org/release/${lastListenedTo.track_metadata.mbid_mapping.release_mbid}`
+    );
+
+    if (coverImageResponse.data.images[0].image) {
+      data.albumArtUrl = coverImageResponse.data.images[0].image;
     }
-  );
 
-  const lastListenedTo = response.data.payload.listens[0];
-
-  const data: ListenResponse = {
-    album: lastListenedTo.track_metadata.release_name,
-    artist: lastListenedTo.track_metadata.artist_name,
-    song: lastListenedTo.track_metadata.track_name,
-    lastListenedTo: lastListenedTo.listened_at,
-    isLive: isListeningTo(lastListenedTo.listened_at),
-  };
-
-  const coverImageResponse = await axios.get<CoverImageResponse>(
-    `https://coverartarchive.org/release/${lastListenedTo.track_metadata.mbid_mapping.release_mbid}`
-  );
-
-  if (coverImageResponse.data.images[0].image) {
-    data.albumArtUrl = coverImageResponse.data.images[0].image;
+    res.status(200).json(data);
+  } catch (e) {
+    res.status(500).json({ error: 'Something went wrong' });
   }
-
-  res.status(200).json(data);
 };
 
 export default getListen;
