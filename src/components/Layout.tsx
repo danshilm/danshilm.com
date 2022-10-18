@@ -6,11 +6,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const { isDarkMode } = useTheme();
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className={`flex flex-col min-h-screen ${isDarkMode ? 'dark' : ''}`}>
       <NavBar />
-      <main className={`flex-1 flex ${isDarkMode ? 'dark' : ''}`}>
-        {children}
-      </main>
+      <main className={`flex-1 flex`}>{children}</main>
     </div>
   );
 };
