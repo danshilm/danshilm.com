@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 export interface ThemeContextProps {
   isDarkMode?: boolean;
-  toggle?: () => void;
+  toggleTheme?: () => void;
   children?: React.ReactNode;
 }
 
@@ -40,7 +40,7 @@ export const ThemeProvider = ({ children }: ThemeContextProps) => {
   }, [isDarkMode]);
 
   return (
-    <ThemeContext.Provider value={{ isDarkMode, toggle }}>
+    <ThemeContext.Provider value={{ isDarkMode, toggleTheme: toggle }}>
       {children}
     </ThemeContext.Provider>
   );

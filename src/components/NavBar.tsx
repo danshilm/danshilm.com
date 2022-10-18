@@ -1,146 +1,89 @@
-import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import useSWR from 'swr';
 import { useTheme } from '../hooks/useTheme';
-import Image from 'next/image';
-import { ListenResponse } from '../pages/api/listening-to';
+import type { ListenResponse } from '../pages/api/listening-to';
 import useClickOutside from '../hooks/useClickOutside';
 import autoAnimate from '@formkit/auto-animate';
-import { getRelativeTime } from '../utils/date';
+import MusicWidget from './MusicWidget';
+import MiniMusicWidget from './MusicWidget/MiniMusicWidget';
+import Delayed from './Delayed';
 
 const NavBar = () => {
-  const { isDarkMode, toggle } = useTheme();
+  const { isDarkMode, toggleTheme } = useTheme();
   const { data } = useSWR<ListenResponse>('/api/listening-to', {
-    refreshInterval: 15000,
+    refreshInterval: 15 * 1000,
   });
+  const receivedInitialData = useRef(false);
   const [isMusicWidgetOpen, setIsMusicWidgetOpen] = useState(false);
   const musicWidgetRef = useRef<HTMLDivElement | null>(null);
+
   // for auto-animate to work
-  const parent = useRef(null);
+  // pretty tedious, I know :(
+  const widgetParent = useRef(null);
+  const miniWidgetParent = useRef(null);
 
   useClickOutside(musicWidgetRef, () => setIsMusicWidgetOpen(false));
 
+  // auto-animate the widget opening and closing
   useEffect(() => {
-    parent.current && autoAnimate(parent.current);
-  }, [parent]);
+    widgetParent.current && autoAnimate(widgetParent.current);
+  }, [widgetParent]);
+
+  // auto-animate the mini widget opening and closing
+  useEffect(() => {
+    miniWidgetParent.current && autoAnimate(miniWidgetParent.current);
+  }, [miniWidgetParent]);
+
+  // close widget 15 seconds after it's opened
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (isMusicWidgetOpen) {
+        setIsMusicWidgetOpen(false);
+      }
+    }, 10 * 1000);
+
+    return () => clearTimeout(timeout);
+  }, [isMusicWidgetOpen]);
+
+  // open music widget when data is received from the endpoint for the first time
+  useEffect(() => {
+    if (!receivedInitialData.current && data) {
+      setIsMusicWidgetOpen(true);
+      receivedInitialData.current = true;
+    }
+  }, [data]);
 
   return (
     <div className="flex justify-center h-16 px-3 text-gray-200 bg-black border-b border-gray-700">
       <div
         className="relative flex justify-between flex-1 max-w-5xl"
-        ref={parent}
+        ref={widgetParent}
       >
         {data && isMusicWidgetOpen && (
-          <div
-            className="flex flex-row absolute rounded-lg bg-gray-900 p-2 h-28 mt-2 w-[96vw] max-w-md z-20 shadow-md -ml-1"
-            ref={musicWidgetRef}
-          >
-            <div className="relative flex items-center justify-center w-24 h-24 overflow-hidden bg-gray-700 rounded-md">
-              {data.albumArtUrl ? (
-                <Image
-                  src={data.albumArtUrl}
-                  alt="Cover image of the album whose song I last listened to"
-                  layout="fill"
-                  className="cursor-pointer"
-                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAXSURBVChTY5DXNP9PDB5ViBdTW6H5fwAAb5U5k4N8CAAAAABJRU5ErkJggg=="
-                  placeholder="blur"
-                />
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
-                  />
-                </svg>
-              )}
-            </div>
-            <div className="flex flex-col pr-2 ml-3">
-              {data.isLive ? (
-                <>
-                  <div className="flex flex-row items-center">
-                    <div className="w-1.5 h-1.5 animate-pulse bg-green-600 rounded-full" />
-                    <p className="ml-2 text-sm italic text-gray-400">
-                      Currently listening to
-                    </p>
-                  </div>
-                </>
-              ) : (
-                <div className="flex flex-row items-center">
-                  <p className="text-sm italic text-gray-400">
-                    ~ {getRelativeTime(new Date(data.lastListenedTo * 1000))}
-                  </p>
-                </div>
-              )}
-              <div className="flex flex-1" />
-              <p className="text-2xl font-semibold tracking-tighter truncate">
-                {data.song}
-              </p>
-              <p className="tracking-tight truncate">{data.album}</p>
-              <p className="-mt-1 tracking-tight truncate">
-                <span className="text-sm italic text-gray-300"> by </span>
-                {data.artist}
-              </p>
-            </div>
-          </div>
+          <MusicWidget data={data} ref={musicWidgetRef} />
         )}
-        <div className="flex items-center">
+        <div className="flex items-center" ref={miniWidgetParent}>
           {data && (
-            <div
-              className="relative flex items-center justify-center overflow-hidden bg-gray-800 rounded-md cursor-pointer h-11 w-11"
-              onClick={() => {
-                setIsMusicWidgetOpen(true);
-              }}
-            >
-              {data.isLive && (
-                <div className="h-1.5 w-1.5 bg-green-700 rounded-full animate-pulse absolute z-10 top-1 right-1" />
-              )}
-              {data.albumArtUrl ? (
-                <Image
-                  src={data.albumArtUrl}
-                  alt="Cover image of the album whose song I last listened to"
-                  layout="fill"
-                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAXSURBVChTY5DXNP9PDB5ViBdTW6H5fwAAb5U5k4N8CAAAAABJRU5ErkJggg=="
-                  placeholder="blur"
-                />
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-4 h-4"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
-                  />
-                </svg>
-              )}
-            </div>
+            // Delay for a bit since the music widget's opacity is low enough for the user
+            // to see the mini widget before the widget is shown
+            <Delayed>
+              <MiniMusicWidget
+                data={data}
+                onClick={() => setIsMusicWidgetOpen(true)}
+              />
+            </Delayed>
           )}
-          <>
-            <p className="hidden p-2 text-4xl font-bold font-nav-title md:block">
-              Danshil Kokil Mungur
-            </p>
-            <p className="block p-2 text-4xl font-bold font-nav-title md:hidden">
-              Danshil
-            </p>
-          </>
+          <p className="hidden p-2 text-4xl font-bold font-nav-title md:block whitespace-nowrap">
+            Danshil Kokil Mungur
+          </p>
+          <p className="block p-2 text-4xl font-bold font-nav-title md:hidden">
+            Danshil
+          </p>
         </div>
         <div className="flex items-center gap-1">
           <button
             className="p-2.5 rounded-lg hover:bg-gray-800"
-            onClick={toggle}
+            onClick={toggleTheme}
             aria-label="Toggle dark mode button"
           >
             {isDarkMode ? (
