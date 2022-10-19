@@ -9,7 +9,7 @@ const MusicWidget = (
 ) => {
   return (
     <div
-      className="flex flex-row absolute rounded-lg bg-gray-900 p-2 h-28 mt-2 w-[96vw] max-w-md z-20 shadow-md -ml-1"
+      className="flex flex-row absolute rounded-lg dark:bg-[#0c0c0c] bg-white p-2 h-28 mt-2 w-[96vw] max-w-md z-20 shadow-lg -ml-1"
       ref={ref}
     >
       <div className="relative flex items-center justify-center w-24 h-24 overflow-hidden bg-gray-700 rounded-md">
@@ -44,25 +44,29 @@ const MusicWidget = (
           <>
             <div className="flex flex-row items-center">
               <div className="w-1.5 h-1.5 animate-pulse bg-green-600 rounded-full" />
-              <p className="ml-2 text-sm italic text-gray-400">
+              <p className="ml-2 text-sm italic text-gray-700 dark:text-gray-300">
                 Currently listening to
               </p>
             </div>
           </>
         ) : (
           <div className="flex flex-row items-center">
-            <p className="text-sm italic text-gray-400">
+            <p className="text-sm italic text-gray-700 dark:text-gray-300">
               ~ {getRelativeTime(new Date(data.lastListenedTo * 1000))}
             </p>
           </div>
         )}
         <div className="flex flex-1" />
-        <p className="text-2xl font-semibold tracking-tighter truncate">
+        <p className="text-2xl font-bold tracking-tight text-gray-800 truncate dark:text-gray-200">
           {data.song}
         </p>
-        <p className="tracking-tight truncate">{data.album}</p>
-        <p className="-mt-1 tracking-tight truncate">
-          <span className="text-sm italic text-gray-300"> by </span>
+        <p className="tracking-tight text-gray-800 truncate dark:text-gray-200">
+          {data.album}
+        </p>
+        <p className="-mt-1 font-semibold tracking-tight text-gray-800 truncate dark:text-gray-200">
+          <span className="text-sm font-normal text-gray-700 dark:text-gray-300">
+            by{' '}
+          </span>
           {data.artist}
         </p>
       </div>

@@ -54,7 +54,7 @@ const NavBar = () => {
   }, [data]);
 
   return (
-    <div className="flex justify-center h-16 px-3 text-gray-200 bg-black border-b border-gray-700">
+    <div className="flex justify-center h-16 px-3 text-gray-700 dark:text-gray-200 bg-neutral-100 dark:bg-[#252529] shadow-md">
       <div
         className="relative flex justify-between flex-1 max-w-5xl"
         ref={widgetParent}
@@ -82,7 +82,7 @@ const NavBar = () => {
         </div>
         <div className="flex items-center gap-1">
           <button
-            className="p-2.5 rounded-lg hover:bg-gray-800"
+            className="p-2.5 rounded-lg dark:hover:bg-zinc-900 hover:bg-zinc-200"
             onClick={toggleTheme}
             aria-label="Toggle dark mode button"
           >
@@ -121,14 +121,14 @@ const NavBar = () => {
           <a
             href="https://github.com/danshilm"
             target="_blank"
-            className="flex items-center flex-row p-2.5 rounded-lg hover:bg-gray-800"
+            className="flex items-center flex-row p-2.5 rounded-lg dark:hover:bg-zinc-900 hover:bg-zinc-200"
             rel="noreferrer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="block w-7 h-7 sm:hidden"
               viewBox="0 0 512 512"
-              fill="#FFFFFF"
+              fill="currentColor"
               stroke="currentColor"
             >
               <path
