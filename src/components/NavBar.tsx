@@ -60,13 +60,15 @@ const NavBar = () => {
         ref={widgetParent}
       >
         {data && isMusicWidgetOpen && (
-          <MusicWidget data={data} ref={musicWidgetRef} />
+          <Delayed waitBeforeShow={!receivedInitialData ? 3500 : 0}>
+            <MusicWidget data={data} ref={musicWidgetRef} />
+          </Delayed>
         )}
         <div className="flex items-center" ref={miniWidgetParent}>
           {data && (
             // Delay for a bit since the music widget's opacity is low enough for the user
             // to see the mini widget before the widget is shown
-            <Delayed>
+            <Delayed waitBeforeShow={4000}>
               <MiniMusicWidget
                 data={data}
                 onClick={() => setIsMusicWidgetOpen(true)}
