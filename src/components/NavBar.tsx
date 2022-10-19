@@ -25,7 +25,7 @@ const NavBar = () => {
 
   useClickOutside(musicWidgetRef, () => setIsMusicWidgetOpen(false));
 
-  // close widget 15 seconds after it's opened
+  // close widget 10 seconds after it's opened
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (isMusicWidgetOpen) {
