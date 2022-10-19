@@ -54,7 +54,7 @@ const NavBar = () => {
   }, [data]);
 
   return (
-    <div className="flex justify-center h-16 px-3 text-gray-700 dark:text-gray-200 bg-neutral-100 dark:bg-[#252529] shadow-md">
+    <div className="flex justify-center h-16 px-3 text-gray-700 dark:text-gray-200 bg-zinc-100 dark:bg-[#252529] shadow-md">
       <div
         className="relative flex justify-between flex-1 max-w-5xl"
         ref={widgetParent}

@@ -12,7 +12,7 @@ const MusicWidget = (
       className="flex flex-row absolute rounded-lg dark:bg-[#0c0c0c] bg-white p-2 h-28 mt-2 w-[96vw] max-w-md z-30 shadow-md -ml-1"
       ref={ref}
     >
-      <div className="relative flex items-center justify-center w-24 h-24 overflow-hidden bg-gray-700 rounded-md cursor-pointer">
+      <div className="relative flex items-center justify-center w-24 h-24 overflow-hidden rounded-md cursor-pointer dark:bg-zinc-700 bg-[#e9e9ec]">
         {data.isLive && (
           <div
             className={`absolute z-10 w-[150px] h-[150px] bg-black transition duration-300 opacity-0 hover:opacity-80`}

@@ -11,14 +11,14 @@ const MiniMusicWidget = ({
 }) => {
   return (
     <div
-      className="relative flex items-center justify-center overflow-hidden bg-gray-800 rounded-md cursor-pointer h-11 w-11"
+      className="relative flex items-center justify-center overflow-hidden rounded-md cursor-pointer dark:bg-zinc-700 bg-[#e9e9ec] h-11 w-11"
       onClick={onClick}
     >
       {data.isLive && (
         <>
           <div className="absolute z-20 w-2 h-2 bg-green-700 rounded-full animate-pulse top-1 right-1" />
           <div
-            className={`absolute z-10 w-[100px] h-[100px] bg-zinc-900 transition duration-300 opacity-0 hover:opacity-90`}
+            className={`absolute z-10 w-[100px] h-[100px] bg-zinc-900 transition duration-300 opacity-0 hover:opacity-80`}
           >
             <Image
               src={'/equalizer.gif'}
