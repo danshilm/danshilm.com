@@ -9,10 +9,23 @@ const MusicWidget = (
 ) => {
   return (
     <div
-      className="flex flex-row absolute rounded-lg dark:bg-[#0c0c0c] bg-white p-2 h-28 mt-2 w-[96vw] max-w-md z-20 shadow-md -ml-1"
+      className="flex flex-row absolute rounded-lg dark:bg-[#0c0c0c] bg-white p-2 h-28 mt-2 w-[96vw] max-w-md z-30 shadow-md -ml-1"
       ref={ref}
     >
-      <div className="relative flex items-center justify-center w-24 h-24 overflow-hidden bg-gray-700 rounded-md">
+      <div className="relative flex items-center justify-center w-24 h-24 overflow-hidden bg-gray-700 rounded-md cursor-pointer">
+        {data.isLive && (
+          <div
+            className={`absolute z-10 w-[150px] h-[150px] bg-black transition duration-300 opacity-0 hover:opacity-80`}
+          >
+            <Image
+              src={'/equalizer.gif'}
+              alt="Live music equalizer icon"
+              layout="fixed"
+              width={150}
+              height={150}
+            />
+          </div>
+        )}
         {data.albumArtUrl ? (
           <Image
             src={data.albumArtUrl}
@@ -63,7 +76,7 @@ const MusicWidget = (
         <p className="tracking-tight text-gray-800 truncate dark:text-gray-200">
           {data.album}
         </p>
-        <p className="-mt-1 font-semibold tracking-tight text-gray-800 truncate dark:text-gray-200">
+        <p className="font-semibold tracking-tight text-gray-800 truncate dark:text-gray-200">
           <span className="text-sm font-normal text-gray-700 dark:text-gray-300">
             by{' '}
           </span>
