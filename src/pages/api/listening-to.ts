@@ -71,8 +71,6 @@ const isListeningTo = (time: number) => {
 
 const getListen = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
-    res.setHeader('Cache-Control', ['s-maxage=1', 'stale-while-revalidate']);
-
     const response = await axios.get<ListenBrainzResponse>(
       'https://api.listenbrainz.org/1/user/CrazyMonk/listens?count=1',
       {
