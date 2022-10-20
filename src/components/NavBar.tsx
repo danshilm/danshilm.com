@@ -7,6 +7,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/react';
 import MusicWidget from './MusicWidget';
 import MiniMusicWidget from './MusicWidget/MiniMusicWidget';
 import Delayed from './Delayed';
+import Image from 'next/image';
 
 const NavBar = () => {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -22,6 +23,7 @@ const NavBar = () => {
   const [widgetParent] = useAutoAnimate<HTMLDivElement>();
   // auto-animate the mini widget opening and closing
   const [miniWidgetParent] = useAutoAnimate<HTMLDivElement>();
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useClickOutside(musicWidgetRef, () => setIsMusicWidgetOpen(false));
 
@@ -54,13 +56,23 @@ const NavBar = () => {
   }, [data]);
 
   return (
-    <div
-      className="flex justify-center h-16 text-gray-700 dark:text-gray-200 shadow-md bg-zinc-100 dark:bg-[#252529] bg-center"
-      style={{
-        backgroundImage:
-          data && data.albumArtUrl ? `url('${data.albumArtUrl}')` : undefined,
-      }}
-    >
+    <div className="flex justify-center h-16 text-gray-700 dark:text-gray-200 shadow-md bg-zinc-100 dark:bg-[#252529] bg-center relative">
+      {/* todo also animate when song changes */}
+      <div
+        className={`transition-opacity duration-1000 opacity-0 ${
+          data?.albumArtUrl ? 'opacity-100' : ''
+        }`}
+      >
+        {data?.albumArtUrl && (
+          <Image
+            src={data.albumArtUrl}
+            layout="fill"
+            alt="Album art as a blurred background"
+            onLoad={() => setIsImageLoaded(true)}
+            className={`${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
+          />
+        )}
+      </div>
       <div
         className={`flex justify-center flex-1 backdrop-blur-lg ${
           data?.albumArtUrl ? 'bg-zinc-200/70 dark:bg-[#252529]/75' : ''

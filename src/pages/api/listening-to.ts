@@ -105,6 +105,15 @@ const getListen = async (_req: NextApiRequest, res: NextApiResponse) => {
     }
 
     res.status(200).json(data);
+    // res.status(200).json({
+    //   album: 'Music for the Motion Picture Victoria',
+    //   artist: 'Nils Frahm',
+    //   song: 'Them',
+    //   lastListenedTo: 1666290260,
+    //   isLive: true,
+    //   albumArtUrl:
+    //     'http://coverartarchive.org/release/842df59b-3594-46d0-b7fc-676af41e8a48/27418215091.jpg',
+    // });
   } catch (e) {
     console.log(`Something went wrong: ${e}`);
     res.status(500).json({ error: `Something went wrong: ${e}` });
