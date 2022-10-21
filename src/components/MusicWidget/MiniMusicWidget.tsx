@@ -9,12 +9,14 @@ const MiniMusicWidget = ({
   data: ListenResponse;
   onClick: () => void;
 }) => {
+  const isMobile = 'ontouchstart' in window;
+
   return (
     <div
       className="relative flex items-center justify-center overflow-hidden rounded-md cursor-pointer dark:bg-zinc-700 bg-[#e9e9ec] h-11 w-11"
       onClick={onClick}
     >
-      {data.isLive && (
+      {data.isLive && !isMobile && (
         <>
           <div className="absolute z-20 w-2 h-2 bg-green-700 rounded-full animate-pulse top-1 right-1" />
           <div
