@@ -7,8 +7,20 @@ import Head from 'next/head';
 import { SWRConfig } from 'swr';
 import axios from 'axios';
 import { Analytics } from '@vercel/analytics/react';
+import { Transition } from '@headlessui/react';
+import Loading from '../components/Loading';
+import { useState, useEffect } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [hasBeenMounted, setHasBeenMounted] = useState(false);
+
+  // wait for components which need to be themed
+  // to be painted on the DOM
+  // + add artificial delay so it's not jarring
+  useEffect(() => {
+    setTimeout(() => setHasBeenMounted(true), 500);
+  }, []);
+
   return (
     <>
       <Script
@@ -59,6 +71,19 @@ function MyApp({ Component, pageProps }: AppProps) {
                 content="https://danshilm.com/banner.png"
               ></meta>
             </Head>
+
+            <Transition
+              show={!hasBeenMounted}
+              enter="transition-opacity duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="transition-opacity duration-300"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Loading />
+            </Transition>
+            
             <Component {...pageProps} />
             <Analytics />
           </Layout>
