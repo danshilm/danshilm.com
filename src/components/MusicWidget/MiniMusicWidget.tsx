@@ -1,6 +1,6 @@
 import React from 'react';
 import type { ListenResponse } from '../../pages/api/listening-to';
-import Image from "next/legacy/image";
+import Image from "next/image";
 
 const MiniMusicWidget = ({
   data,
@@ -25,10 +25,8 @@ const MiniMusicWidget = ({
             <Image
               src={'/equalizer.gif'}
               alt="Live music equalizer icon"
-              layout="fixed"
               width={100}
-              height={100}
-            />
+              height={100} />
           </div>
         </>
       )}
@@ -36,10 +34,10 @@ const MiniMusicWidget = ({
         <Image
           src={data.albumArtUrl}
           alt="Cover image of the album whose song I last listened to"
-          layout="fill"
           blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAXSURBVChTY5DXNP9PDB5ViBdTW6H5fwAAb5U5k4N8CAAAAABJRU5ErkJggg=="
           placeholder="blur"
-        />
+          fill
+          sizes="100px" />
       ) : (
         <svg
           xmlns="http://www.w3.org/2000/svg"

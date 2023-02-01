@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import Image from "next/legacy/image";
+import Image from "next/image";
 import type { ListenResponse } from '../../pages/api/listening-to';
 import { getRelativeTime } from '../../utils/date';
 
@@ -22,21 +22,19 @@ const MusicWidget = (
             <Image
               src={'/equalizer.gif'}
               alt="Live music equalizer icon"
-              layout="fixed"
               width={150}
-              height={150}
-            />
+              height={150} />
           </div>
         )}
         {data.albumArtUrl ? (
           <Image
             src={data.albumArtUrl}
             alt="Cover image of the album whose song I last listened to"
-            layout="fill"
             className="cursor-pointer"
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAXSURBVChTY5DXNP9PDB5ViBdTW6H5fwAAb5U5k4N8CAAAAABJRU5ErkJggg=="
             placeholder="blur"
-          />
+            fill
+            sizes="150px" />
         ) : (
           <svg
             xmlns="http://www.w3.org/2000/svg"
