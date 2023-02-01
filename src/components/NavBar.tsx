@@ -7,6 +7,12 @@ import { useAutoAnimate } from '@formkit/auto-animate/react';
 import MusicWidget from './MusicWidget';
 import MiniMusicWidget from './MusicWidget/MiniMusicWidget';
 import Delayed from './Delayed';
+import { Dancing_Script } from '@next/font/google';
+
+const dancingScript = Dancing_Script({
+  subsets: ['latin'],
+  weight: '700',
+});
 
 const NavBar = () => {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -73,10 +79,14 @@ const NavBar = () => {
               />
             </Delayed>
           )}
-          <p className="hidden p-2 text-4xl font-bold font-nav-title md:block whitespace-nowrap">
+          <p
+            className={`hidden p-2 text-4xl font-bold ${dancingScript.className} md:block whitespace-nowrap`}
+          >
             Danshil Kokil Mungur
           </p>
-          <p className="block p-2 text-4xl font-bold font-nav-title md:hidden">
+          <p
+            className={`block p-2 text-4xl font-bold ${dancingScript.className} md:hidden`}
+          >
             Danshil
           </p>
         </div>
