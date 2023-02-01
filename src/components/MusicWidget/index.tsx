@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import type { ListenResponse } from '../../pages/api/listening-to';
 import { getRelativeTime } from '../../utils/date';
 

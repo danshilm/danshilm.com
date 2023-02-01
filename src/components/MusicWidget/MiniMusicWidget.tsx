@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import type { ListenResponse } from '../../pages/api/listening-to';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 
 const MiniMusicWidget = ({
   data,
