@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import useSWR from 'swr';
-import { useTheme } from '../hooks/useTheme';
-import type { ListenResponse } from '../pages/api/listening-to';
-import useClickOutside from '../hooks/useClickOutside';
+import { useTheme } from '../../hooks/useTheme';
+import type { ListenResponse } from '../../pages/api/listening-to';
+import useClickOutside from '../../hooks/useClickOutside';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-import MusicWidget from './MusicWidget';
-import MiniMusicWidget from './MusicWidget/MiniMusicWidget';
-import Delayed from './Delayed';
+import MusicWidget from '../MusicWidget';
+import MiniMusicWidget from '../MusicWidget/MiniMusicWidget';
+import Delayed from '../Delayed';
 import { Dancing_Script } from '@next/font/google';
 
 const dancingScript = Dancing_Script({
@@ -31,7 +31,7 @@ const NavBar = () => {
 
   useClickOutside(musicWidgetRef, () => setIsMusicWidgetOpen(false));
 
-  // close widget 10 seconds after it's opened
+  // auto-close widget 10 seconds after it's opened
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (isMusicWidgetOpen) {

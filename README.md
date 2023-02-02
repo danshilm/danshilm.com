@@ -1,3 +1,3 @@
 # danshilm.com
 
-Made with NextJS, hosted on Vercel.
+Made with NextJS 13, hosted on Vercel.
