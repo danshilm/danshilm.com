@@ -1,12 +1,10 @@
 'use client';
 
 import { ThemeProvider } from 'next-themes';
-import { Transition } from '@headlessui/react';
 import { Analytics } from '@vercel/analytics/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { SWRConfig } from 'swr';
-import Loading from '../Loading';
 import NavBar from './NavBar';
 import ThemedLayout from './ThemedLayout';
 

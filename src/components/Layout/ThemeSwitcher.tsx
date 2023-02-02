@@ -21,7 +21,7 @@ export default function ThemeSwitcher() {
       leaveTo="opacity-0"
     >
       <button
-        className="p-2.5 rounded-lg dark:hover:bg-zinc-900 hover:bg-zinc-200 disabled:cursor-not-allowed transition-colors duration-300"
+        className="p-2.5 rounded-lg dark:hover:bg-zinc-900 hover:bg-zinc-200 disabled:cursor-not-allowed"
         onClick={() =>
           theme === 'dark' ? setTheme('light') : setTheme('dark')
         }

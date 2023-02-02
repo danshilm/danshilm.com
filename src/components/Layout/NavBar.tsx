@@ -59,7 +59,7 @@ const NavBar = () => {
   }, [data]);
 
   return (
-    <div className="flex justify-center h-16 px-3 text-gray-700 dark:text-gray-200 bg-zinc-100 dark:bg-[#252529] shadow-md transition-colors duration-300">
+    <div className="flex justify-center h-16 px-3 text-gray-700 dark:text-gray-200 bg-zinc-100 dark:bg-[#252529] shadow-md">
       <div
         className="relative flex justify-between flex-1 max-w-5xl"
         ref={widgetParent}
@@ -94,7 +94,7 @@ const NavBar = () => {
           <a
             href="https://github.com/danshilm"
             target="_blank"
-            className="flex items-center flex-row p-2.5 rounded-lg dark:hover:bg-zinc-900 hover:bg-zinc-200 transition-colors duration-300"
+            className="flex items-center flex-row p-2.5 rounded-lg dark:hover:bg-zinc-900 hover:bg-zinc-200"
             rel="noreferrer"
           >
             <svg

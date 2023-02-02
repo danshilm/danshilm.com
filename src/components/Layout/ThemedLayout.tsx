@@ -9,7 +9,7 @@ export default function ThemedLayout({
   const { theme } = useTheme();
 
   return (
-    <div className={`flex flex-col min-h-screen ${theme === 'dark' ? 'dark' : ''}`}>
+    <div className={`flex flex-col min-h-screen`}>
       {children}
     </div>
   );
