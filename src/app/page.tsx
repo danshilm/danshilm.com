@@ -4,7 +4,7 @@ import CustomLink from '../components/CustomLink';
 const Home: NextPage = () => {
   return (
     <>
-      <div className="flex flex-col items-center justify-center flex-1 px-6 text-gray-800 dark:text-gray-200 dark:bg-zinc-900 bg-zinc-200">
+      <div className="flex flex-col items-center justify-center flex-1 px-6 text-gray-800 transition-colors duration-300 dark:text-gray-200 dark:bg-zinc-900 bg-zinc-200">
         <div className="max-w-5xl pt-32 lg:py-0 lg:px-4 pb-14">
           <p className="font-serif font-semibold text-8xl">
             Hi there! I&apos;m Dan.
@@ -28,7 +28,7 @@ const Home: NextPage = () => {
             management tool for the Plex ecosystem called{' '}
             <CustomLink href="https://overseerr.dev" text="Overseerr" />.
           </p>
-          <p className="mt-10 text-lg text-gray-700 dark:text-gray-300">
+          <p className="mt-10 text-lg text-gray-700 transition-colors duration-300 dark:text-gray-300">
             Find me on{' '}
             <CustomLink
               href="https://www.linkedin.com/in/danshil-kokil-mungur/"

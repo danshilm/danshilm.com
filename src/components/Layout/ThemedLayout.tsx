@@ -1,15 +1,15 @@
-import { useTheme } from '@/hooks/useTheme';
 import React from 'react';
+import { useTheme } from 'next-themes';
 
 export default function ThemedLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { isDarkMode } = useTheme();
+  const { theme } = useTheme();
 
   return (
-    <div className={`flex flex-col min-h-screen ${isDarkMode ? 'dark' : ''}`}>
+    <div className={`flex flex-col min-h-screen ${theme === 'dark' ? 'dark' : ''}`}>
       {children}
     </div>
   );

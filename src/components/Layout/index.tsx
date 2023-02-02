@@ -1,7 +1,6 @@
 'use client';
 
-import ThemeContext, { ThemeProvider } from '@/context/ThemeContext';
-import { useTheme } from '@/hooks/useTheme';
+import { ThemeProvider } from 'next-themes';
 import { Transition } from '@headlessui/react';
 import { Analytics } from '@vercel/analytics/react';
 import axios from 'axios';
@@ -22,25 +21,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <ThemeProvider>
+    <ThemeProvider attribute="class">
       <SWRConfig
         value={{
           fetcher: (url) => axios.get(url).then((res) => res.data),
         }}
       >
         <ThemedLayout>
-          <Transition
-            show={!hasBeenMounted}
-            enter="transition-opacity duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="transition-opacity duration-300"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <Loading />
-          </Transition>
-
           <NavBar />
           <main className="flex flex-1">{children}</main>
           <Analytics />
