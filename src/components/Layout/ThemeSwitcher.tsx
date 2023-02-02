@@ -12,7 +12,7 @@ export default function ThemeSwitcher() {
 
   return (
     <Transition
-      show={isMounted}
+      show={isMounted && !!theme}
       enter="transition-opacity duration-300"
       enterFrom="opacity-0"
       enterTo="opacity-100"
