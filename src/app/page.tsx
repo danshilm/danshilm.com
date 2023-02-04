@@ -19,6 +19,7 @@ const Home: NextPage = () => {
             <CustomLink
               href="https://github.com/danshilm/mobouzer"
               text="MoBouzer"
+              aria-label="GitHub Repository of MoBouzer"
             />
             , that helps people using public transportation to navigate through
             Mauritius.
@@ -26,16 +27,27 @@ const Home: NextPage = () => {
           <p className="mt-2 text-xl">
             I also help maintain and contribute to a media discovery & request
             management tool for the Plex ecosystem called{' '}
-            <CustomLink href="https://overseerr.dev" text="Overseerr" />.
+            <CustomLink
+              href="https://overseerr.dev"
+              text="Overseerr"
+              aria-label="Overseerr's homepage"
+            />
+            .
           </p>
           <p className="mt-10 text-lg text-gray-700 dark:text-gray-300">
             Find me on{' '}
             <CustomLink
               href="https://www.linkedin.com/in/danshil-kokil-mungur/"
               text="LinkedIn"
+              aria-label="My LinkedIn Profile"
             />
             . Or feel free to contact me via{' '}
-            <CustomLink href="mailto:me@danshilm.com" text="email" />.
+            <CustomLink
+              href="mailto:me@danshilm.com"
+              text="email"
+              aria-label="Send an email to Danshil at me@danshilm.com"
+            />
+            .
           </p>
         </div>
       </div>

@@ -96,6 +96,7 @@ const NavBar = () => {
             target="_blank"
             className="flex items-center flex-row p-2.5 rounded-lg dark:hover:bg-zinc-900 hover:bg-zinc-200"
             rel="noreferrer"
+            aria-label="Link to Danshil's GitHub profile"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
