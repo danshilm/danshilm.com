@@ -3,21 +3,11 @@
 import { ThemeProvider } from 'next-themes';
 import { Analytics } from '@vercel/analytics/react';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { SWRConfig } from 'swr';
 import NavBar from './NavBar';
-import ThemedLayout from './ThemedLayout';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const [hasBeenMounted, setHasBeenMounted] = useState(false);
-
-  // wait for components which need to be themed
-  // to be painted on the DOM
-  // + add artificial delay so it's not jarring
-  useEffect(() => {
-    setTimeout(() => setHasBeenMounted(true), 500);
-  }, []);
-
   return (
     <ThemeProvider attribute="class">
       <SWRConfig
@@ -25,11 +15,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           fetcher: (url) => axios.get(url).then((res) => res.data),
         }}
       >
-        <ThemedLayout>
+        <div className={`flex flex-col min-h-screen`}>
           <NavBar />
           <main className="flex flex-1">{children}</main>
           <Analytics />
-        </ThemedLayout>
+        </div>
       </SWRConfig>
     </ThemeProvider>
   );
