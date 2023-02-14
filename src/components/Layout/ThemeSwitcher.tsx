@@ -3,7 +3,7 @@ import { useTheme } from 'next-themes';
 import React, { useEffect, useState } from 'react';
 
 export default function ThemeSwitcher() {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export default function ThemeSwitcher() {
 
   return (
     <Transition
-      show={isMounted && !!theme}
+      show={isMounted && !!resolvedTheme}
       enter="transition-opacity duration-300"
       enterFrom="opacity-0"
       enterTo="opacity-100"
@@ -23,12 +23,12 @@ export default function ThemeSwitcher() {
       <button
         className="p-2.5 rounded-lg dark:hover:bg-zinc-900 hover:bg-zinc-200 disabled:cursor-not-allowed"
         onClick={() =>
-          theme === 'dark' ? setTheme('light') : setTheme('dark')
+          resolvedTheme === 'dark' ? setTheme('light') : setTheme('dark')
         }
         aria-label="Toggle dark mode button"
         disabled={!isMounted}
       >
-        {theme === 'dark' ? (
+        {resolvedTheme === 'dark' ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
