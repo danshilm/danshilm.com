@@ -4,18 +4,18 @@ import type { ListenResponse } from '../../pages/api/listening-to';
 import { getRelativeTime } from '../../utils/date';
 
 const MusicWidget = (
-  { data }: { data: ListenResponse },
+  { data }: { data?: ListenResponse },
   ref?: React.Ref<HTMLDivElement>
 ) => {
   const isMobile = 'ontouchstart' in window;
 
   return (
     <div
-      className="flex flex-row absolute rounded-lg dark:bg-[#0c0c0c] bg-white p-2 h-28 mt-2 w-[96vw] max-w-md z-30 shadow-md -ml-1"
+      className="flex flex-row absolute rounded-lg dark:bg-[#0c0c0c] bg-white p-2 h-28 mt-2 w-[96vw] max-w-md z-30 shadow-md -ml-1 origin-top-left"
       ref={ref}
     >
       <div className="relative flex items-center justify-center w-24 h-24 overflow-hidden rounded-md cursor-pointer dark:bg-zinc-700 bg-[#e9e9ec]">
-        {data.isLive && !isMobile && (
+        {data?.isLive && !isMobile && (
           <div
             className={`absolute z-10 w-[150px] h-[150px] bg-black transition duration-300 opacity-0 hover:opacity-80`}
           >
@@ -27,9 +27,9 @@ const MusicWidget = (
             />
           </div>
         )}
-        {data.albumArtUrl ? (
+        {data?.albumArtUrl ? (
           <Image
-            src={data.albumArtUrl}
+            src={data?.albumArtUrl}
             alt="Cover image of the album whose song I last listened to"
             className="cursor-pointer"
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAXSURBVChTY5DXNP9PDB5ViBdTW6H5fwAAb5U5k4N8CAAAAABJRU5ErkJggg=="
@@ -55,7 +55,7 @@ const MusicWidget = (
         )}
       </div>
       <div className="flex flex-col pr-2 ml-3">
-        {data.isLive ? (
+        {data?.isLive ? (
           <>
             <div className="flex flex-row items-center">
               <div className="w-1.5 h-1.5 animate-pulse bg-green-600 rounded-full" />
@@ -67,22 +67,24 @@ const MusicWidget = (
         ) : (
           <div className="flex flex-row items-center">
             <p className="text-sm italic text-gray-700 dark:text-gray-300">
-              ~ {getRelativeTime(new Date(data.lastListenedTo * 1000))}
+              ~{' '}
+              {data?.lastListenedTo &&
+                getRelativeTime(new Date(data?.lastListenedTo * 1000))}
             </p>
           </div>
         )}
         <div className="flex flex-1" />
         <p className="text-2xl font-bold tracking-tight text-gray-800 truncate dark:text-gray-200">
-          {data.song}
+          {data?.song}
         </p>
         <p className="tracking-tight text-gray-800 truncate dark:text-gray-200">
-          {data.album}
+          {data?.album}
         </p>
         <p className="font-semibold tracking-tight text-gray-800 truncate dark:text-gray-200">
           <span className="text-sm font-normal text-gray-700 dark:text-gray-300">
             by{' '}
           </span>
-          {data.artist}
+          {data?.artist}
         </p>
       </div>
     </div>

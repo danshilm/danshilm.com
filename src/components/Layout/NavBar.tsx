@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import useSWR from 'swr';
 import type { ListenResponse } from '../../pages/api/listening-to';
 import useClickOutside from '../../hooks/useClickOutside';
@@ -8,6 +8,7 @@ import MiniMusicWidget from '../MusicWidget/MiniMusicWidget';
 import Delayed from '../Delayed';
 import { Dancing_Script } from '@next/font/google';
 import ThemeSwitcher from './ThemeSwitcher';
+import { Transition } from '@headlessui/react';
 
 const dancingScript = Dancing_Script({
   subsets: ['latin'],
@@ -23,9 +24,7 @@ const NavBar = () => {
   const musicWidgetRef = useRef<HTMLDivElement | null>(null);
   const musicWidgetData = useRef<{ song?: string }>({ song: undefined });
 
-  // auto-animate the widget opening and closing
-  const [widgetParent] = useAutoAnimate<HTMLDivElement>();
-  // auto-animate the mini widget opening and closing
+  // auto-animate the mini widget appearing and moving the navbar title away
   const [miniWidgetParent] = useAutoAnimate<HTMLDivElement>();
 
   useClickOutside(musicWidgetRef, () => setIsMusicWidgetOpen(false));
@@ -60,13 +59,19 @@ const NavBar = () => {
 
   return (
     <div className="flex justify-center h-16 px-3 text-gray-700 dark:text-gray-200 bg-zinc-100 dark:bg-[#252529] shadow-md">
-      <div
-        className="relative flex justify-between flex-1 max-w-5xl"
-        ref={widgetParent}
-      >
-        {data && isMusicWidgetOpen && (
+      <div className="relative flex justify-between flex-1 max-w-5xl">
+        <Transition
+          show={!!data && isMusicWidgetOpen}
+          as={Fragment}
+          enter="transition ease-out duration-300"
+          enterFrom="scale-95 opacity-80"
+          enterTo="opacity-100 scale-100"
+          leave="transition ease-in duration-300"
+          leaveFrom="opacity-100 scale-100"
+          leaveTo="opacity-0 scale-95"
+        >
           <MusicWidget data={data} ref={musicWidgetRef} />
-        )}
+        </Transition>
         <div className="flex items-center" ref={miniWidgetParent}>
           {data && (
             // Delay for a bit since the music widget's opacity is low enough for the user
