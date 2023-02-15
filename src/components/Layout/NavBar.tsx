@@ -50,7 +50,11 @@ const NavBar = () => {
 
   // show music widget when song changes
   useEffect(() => {
-    if (data && musicWidgetData.current.song !== data.song) {
+    if (
+      data &&
+      musicWidgetData.current.song &&
+      musicWidgetData.current.song !== data.song
+    ) {
       setIsMusicWidgetOpen(true);
     }
 
