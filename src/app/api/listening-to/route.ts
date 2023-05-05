@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 
 interface ListenBrainzResponse {
   payload: {
@@ -62,14 +62,14 @@ export interface ListenResponse {
 }
 
 // give or take 3 minutes
-const isListeningTo = (time: number) => {
+function isListeningTo(time: number) {
   const now = new Date();
   const twoMinutes = 3 * 60 * 1000;
 
   return now.getTime() - time * 1000 < twoMinutes;
-};
+}
 
-const getListen = async (_req: NextApiRequest, res: NextApiResponse) => {
+export async function GET(_req: NextRequest) {
   try {
     const response = await axios.get<ListenBrainzResponse>(
       'https://api.listenbrainz.org/1/user/CrazyMonk/listens?count=1',
@@ -104,11 +104,14 @@ const getListen = async (_req: NextApiRequest, res: NextApiResponse) => {
       }
     }
 
-    res.status(200).json(data);
+    return NextResponse.json(data, {
+      status: 200,
+      headers: { 'Cache-Control': 'max-age=30, stale-while-revalidate=59' },
+    });
   } catch (e) {
     console.log(e);
-    res.status(500);
+    return new NextResponse('Could not get what Danshil is listening to', {
+      status: 500,
+    });
   }
-};
-
-export default getListen;
+}

@@ -1,7 +1,7 @@
-import React, { forwardRef } from 'react';
+import { ListenResponse } from '@/app/api/listening-to/route';
+import { getRelativeTime } from '@/utils/date';
 import Image from 'next/image';
-import type { ListenResponse } from '../../pages/api/listening-to';
-import { getRelativeTime } from '../../utils/date';
+import React, { forwardRef } from 'react';
 
 const MusicWidget = (
   { data }: { data?: ListenResponse },

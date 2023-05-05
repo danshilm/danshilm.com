@@ -1,5 +1,5 @@
+import CustomLink from '@/components/CustomLink';
 import type { NextPage } from 'next';
-import CustomLink from '../components/CustomLink';
 
 const Home: NextPage = () => {
   return (

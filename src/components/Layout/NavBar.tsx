@@ -1,14 +1,14 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
-import useSWR from 'swr';
-import type { ListenResponse } from '../../pages/api/listening-to';
-import useClickOutside from '../../hooks/useClickOutside';
+import { ListenResponse } from '@/app/api/listening-to/route';
+import useClickOutside from '@/hooks/useClickOutside';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
+import { Transition } from '@headlessui/react';
+import { Dancing_Script } from 'next/font/google';
+import { Fragment, useEffect, useRef, useState } from 'react';
+import useSWR from 'swr';
+import Delayed from '../Delayed';
 import MusicWidget from '../MusicWidget';
 import MiniMusicWidget from '../MusicWidget/MiniMusicWidget';
-import Delayed from '../Delayed';
-import { Dancing_Script } from '@next/font/google';
 import ThemeSwitcher from './ThemeSwitcher';
-import { Transition } from '@headlessui/react';
 
 const dancingScript = Dancing_Script({
   subsets: ['latin'],
@@ -17,7 +17,7 @@ const dancingScript = Dancing_Script({
 
 const NavBar = () => {
   const { data } = useSWR<ListenResponse>('/api/listening-to', {
-    refreshInterval: 15 * 1000,
+    refreshInterval: 10 * 1000,
   });
   const receivedInitialData = useRef(false);
   const [isMusicWidgetOpen, setIsMusicWidgetOpen] = useState(false);
