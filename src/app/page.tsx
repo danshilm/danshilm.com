@@ -10,7 +10,7 @@ const Home: NextPage = () => {
             Hi there! I&apos;m Dan.
           </p>
           <p className="mt-4 text-2xl">
-            I&apos;m a full stack web developer who&apos;s passionate about cool
+            I&apos;m a software engineer who&apos;s passionate about cool
             projects.
           </p>
           <p className="mt-4 text-xl">
