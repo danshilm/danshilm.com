@@ -1,5 +1,5 @@
-import { ListenResponse } from '@/app/api/listening-to/route';
 import useClickOutside from '@/hooks/useClickOutside';
+import { ListenResponse } from '@/pages/api/listening-to';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { Transition } from '@headlessui/react';
 import { Dancing_Script } from 'next/font/google';
@@ -68,7 +68,7 @@ const NavBar = () => {
           show={!!data && isMusicWidgetOpen}
           as={Fragment}
           enter="transition ease-out duration-300"
-          enterFrom="scale-95 opacity-80"
+          enterFrom="scale-[.8] opacity-80"
           enterTo="opacity-100 scale-100"
           leave="transition ease-in duration-300"
           leaveFrom="opacity-100 scale-100"

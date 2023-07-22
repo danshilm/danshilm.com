@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { NextRequest, NextResponse } from 'next/server';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 interface ListenBrainzResponse {
   payload: {
@@ -64,13 +64,15 @@ export interface ListenResponse {
 // give or take 3 minutes
 function isListeningTo(time: number) {
   const now = new Date();
-  const twoMinutes = 3 * 60 * 1000;
+  const someMinutes = 3 * 60 * 1000;
 
-  return now.getTime() - time * 1000 < twoMinutes;
-}
+  return now.getTime() - time * 1000 < someMinutes;
+};
 
-export async function GET(_req: NextRequest) {
+const getListen = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
+    res.setHeader('Cache-Control', ['s-maxage=1', 'stale-while-revalidate']);
+
     const response = await axios.get<ListenBrainzResponse>(
       'https://api.listenbrainz.org/1/user/CrazyMonk/listens?count=1',
       {
@@ -95,23 +97,26 @@ export async function GET(_req: NextRequest) {
     };
 
     if (lastListenedTo.track_metadata.mbid_mapping?.release_mbid) {
-      const coverImageResponse = await axios.get<CoverImageResponse>(
-        `https://coverartarchive.org/release/${lastListenedTo.track_metadata.mbid_mapping.release_mbid}`
-      );
+      try {
+        const coverImageResponse = await axios.get<CoverImageResponse>(
+          `https://coverartarchive.org/release/${lastListenedTo.track_metadata.mbid_mapping.release_mbid}`
+        );
 
-      if (coverImageResponse.data.images[0].image) {
-        data.albumArtUrl = coverImageResponse.data.images[0].image;
+        if (coverImageResponse.data.images[0].image) {
+          data.albumArtUrl = coverImageResponse.data.images[0].image;
+        }
+      } catch (error) {
+        // cover image not found?
       }
     }
 
-    return NextResponse.json(data, {
-      status: 200,
-      headers: { 'Cache-Control': 's-maxage=1, stale-while-revalidate' },
-    });
+    res.status(200).json(data);
   } catch (e) {
     console.log(e);
-    return new NextResponse('Could not get what Danshil is listening to', {
-      status: 500,
-    });
+    res
+      .status(500)
+      .json({ message: 'Could not fetch what Danshil is listening to' });
   }
-}
+};
+
+export default getListen;

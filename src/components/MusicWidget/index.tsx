@@ -1,4 +1,4 @@
-import { ListenResponse } from '@/app/api/listening-to/route';
+import { ListenResponse } from '@/pages/api/listening-to';
 import { getRelativeTime } from '@/utils/date';
 import Image from 'next/image';
 import React, { forwardRef } from 'react';
@@ -74,7 +74,7 @@ const MusicWidget = (
           </div>
         )}
         <div className="flex flex-1" />
-        <p className="text-2xl font-bold tracking-tight text-gray-800 truncate dark:text-gray-200">
+        <p className="text-2xl font-bold tracking-tight text-gray-800 truncate w-72 dark:text-gray-200">
           {data?.song}
         </p>
         <p className="tracking-tight text-gray-800 truncate dark:text-gray-200">
