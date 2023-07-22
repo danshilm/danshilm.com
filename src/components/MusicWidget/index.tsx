@@ -1,4 +1,4 @@
-import { ListenResponse } from '@/app/api/listening-to/route';
+import { ListenResponse } from '@/pages/api/listening-to';
 import { getRelativeTime } from '@/utils/date';
 import Image from 'next/image';
 import React, { forwardRef } from 'react';

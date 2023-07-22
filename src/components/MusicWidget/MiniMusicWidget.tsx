@@ -1,4 +1,4 @@
-import { ListenResponse } from '@/app/api/listening-to/route';
+import { ListenResponse } from '@/pages/api/listening-to';
 import Image from 'next/image';
 
 const MiniMusicWidget = ({

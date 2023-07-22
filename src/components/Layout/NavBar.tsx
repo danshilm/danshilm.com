@@ -1,5 +1,5 @@
-import { ListenResponse } from '@/app/api/listening-to/route';
 import useClickOutside from '@/hooks/useClickOutside';
+import { ListenResponse } from '@/pages/api/listening-to';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { Transition } from '@headlessui/react';
 import { Dancing_Script } from 'next/font/google';
