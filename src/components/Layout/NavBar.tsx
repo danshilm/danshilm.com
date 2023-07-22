@@ -68,7 +68,7 @@ const NavBar = () => {
           show={!!data && isMusicWidgetOpen}
           as={Fragment}
           enter="transition ease-out duration-300"
-          enterFrom="scale-95 opacity-80"
+          enterFrom="scale-[.8] opacity-80"
           enterTo="opacity-100 scale-100"
           leave="transition ease-in duration-300"
           leaveFrom="opacity-100 scale-100"
