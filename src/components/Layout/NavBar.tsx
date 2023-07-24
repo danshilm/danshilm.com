@@ -30,15 +30,15 @@ const NavBar = () => {
   useClickOutside(musicWidgetRef, () => setIsMusicWidgetOpen(false));
 
   // auto-close widget 10 seconds after it's opened
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (isMusicWidgetOpen) {
-        setIsMusicWidgetOpen(false);
-      }
-    }, 10 * 1000);
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     if (isMusicWidgetOpen) {
+  //       setIsMusicWidgetOpen(false);
+  //     }
+  //   }, 10 * 1000);
 
-    return () => clearTimeout(timeout);
-  }, [isMusicWidgetOpen]);
+  //   return () => clearTimeout(timeout);
+  // }, [isMusicWidgetOpen]);
 
   // open music widget when data is received from the endpoint for the first time
   useEffect(() => {
@@ -68,7 +68,7 @@ const NavBar = () => {
           show={!!data && isMusicWidgetOpen}
           as={Fragment}
           enter="transition ease-out duration-300"
-          enterFrom="scale-[.8] opacity-80"
+          enterFrom="scale-90 opacity-70"
           enterTo="opacity-100 scale-100"
           leave="transition ease-in duration-300"
           leaveFrom="opacity-100 scale-100"
