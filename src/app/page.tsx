@@ -1,5 +1,31 @@
 import CustomLink from '@/components/CustomLink';
-import type { NextPage } from 'next';
+import type { NextPage, Metadata } from 'next';
+
+export const metadata: Metadata = {
+  metadataBase:
+    process.env.NODE_ENV === 'production'
+      ? new URL('https://danshilm.com')
+      : new URL(`http://localhost:${process.env.PORT || 3000}`),
+  title: 'danshilm.com',
+  description:
+    "I'm a full stack web developer, and this is my personal website as well as playgrounds for some cool stuff",
+  icons: '/favicon.ico',
+  openGraph: {
+    url: 'https://danshilm.com',
+    type: 'website',
+    title: 'danshilm.com',
+    description:
+      "I'm a full stack web developer, and this is my personal website as well as playgrounds for some cool stuff",
+    images: '/banner.png',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'danshilm.com',
+    description:
+      "I'm a full stack web developer, and this is my personal website as well as playgrounds for some cool stuff",
+    images: '/banner.png',
+  },
+};
 
 const Home: NextPage = () => {
   return (
