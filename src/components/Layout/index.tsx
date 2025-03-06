@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       >
         <div className={`flex flex-col min-h-screen`}>
           <NavBar />
-          <main className="flex flex-1">{children}</main>
+          <main className="flex flex-1 justify-center">{children}</main>
           <Analytics />
         </div>
       </SWRConfig>
