@@ -1,7 +1,7 @@
 'use client';
 
 import { ThemeProvider } from 'next-themes';
-import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import axios from 'axios';
 import React from 'react';
 import { SWRConfig } from 'swr';
@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className={`flex flex-col min-h-screen`}>
           <NavBar />
           <main className="flex flex-1 justify-center">{children}</main>
-          <Analytics />
+          <SpeedInsights />
         </div>
       </SWRConfig>
     </ThemeProvider>
