@@ -30,7 +30,7 @@ const MusicWidget = (
         {data?.albumArtUrl ? (
           <Image
             src={data?.albumArtUrl}
-            alt="Cover image of the album whose song I last listened to"
+            alt={`Cover image of the album ${data.album} by ${data.artist}`}
             className="cursor-pointer"
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAXSURBVChTY5DXNP9PDB5ViBdTW6H5fwAAb5U5k4N8CAAAAABJRU5ErkJggg=="
             placeholder="blur"
