@@ -54,7 +54,7 @@ const MusicWidget = (
           </svg>
         )}
       </div>
-      <div className="flex flex-col pr-2 ml-3">
+      <div className="flex flex-col pr-2 ml-3 truncate">
         {data?.isLive ? (
           <>
             <div className="flex flex-row items-center">
