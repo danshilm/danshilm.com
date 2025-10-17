@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  images: { domains: ['coverartarchive.org'] },
+  images: { remotePatterns: [{ hostname: 'coverartarchive.org' }] },
 };
 
 module.exports = nextConfig;
